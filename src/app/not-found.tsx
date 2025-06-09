@@ -31,7 +31,6 @@ export default function NotFoundPage() {
 
     return (
         <>
-            <Navbar />
             <div className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 relative bg-bg-alt">
                 {/* Background grid effect */}
                 <div className="absolute inset-0 z-0 pointer-events-none">

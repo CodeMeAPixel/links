@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { IoHome, IoReload, IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import Navbar from "@/components/static/Navbar";
 
 export default function ErrorPage({
     error,
@@ -37,7 +36,6 @@ export default function ErrorPage({
 
     return (
         <>
-            <Navbar />
             <div className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 bg-bg-alt relative">
                 {/* Background grid effect */}
                 <div className="absolute inset-0 z-0 pointer-events-none">

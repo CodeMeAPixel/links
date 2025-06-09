@@ -8,23 +8,23 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "CodeMeAPixel | Portfolio",
+    default: "CodeMeAPixel | Links",
     template: "%s | CodeMeAPixel"
   },
-  description: "I create beautiful and functional web experiences with modern technologies and a passion for design.",
+  description: "A collection of links to my projects, social media, and more. I create beautiful and functional web experiences with modern technologies and a passion for design.",
   applicationName: "CodeMeAPixel | Portfolio",
   metadataBase: new URL("https://codemeapixel.dev"),
   openGraph: {
-    siteName: "CodeMeAPixel | Portfolio",
-    description: "I create beautiful and functional web experiences with modern technologies and a passion for design.",
+    siteName: "CodeMeAPixel | Links",
+    description: "A collection of links to my projects, social media, and more. I create beautiful and functional web experiences with modern technologies and a passion for design.",
     images: "/character.png",
     creators: ["CodeMeAPixel"],
     locale: "en_US",
     url: "https://codemeapixel.dev",
   },
   twitter: {
-    title: "CodeMeAPixel | Portfolio",
-    description: "I create beautiful and functional web experiences with modern technologies and a passion for design.",
+    title: "CodeMeAPixel | Links",
+    description: "A collection of links to my projects, social media, and more. I create beautiful and functional web experiences with modern technologies and a passion for design.",
     images: "/character.png",
     creator: "@CodeMeAPixel",
     card: "summary",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   appleWebApp: {
     statusBarStyle: "black-translucent",
-    title: "CodeMeAPixel | Portfolio",
+    title: "CodeMeAPixel | Links",
   },
   other: {
     "mobile-we-app-capable": "yes"

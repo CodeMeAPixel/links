@@ -10,6 +10,7 @@ import { IoArrowForward } from 'react-icons/io5';
 import PlaylistSection from './PlaylistSection';
 import { Profile, Playlist } from '@/data/linksData';
 import { BackgroundEffects } from '@/components/ui/BackgroundEffects';
+import ThemeSwitcherButton from '@/components/links/ThemeSwitcherButton';
 
 interface LinkHubContentProps {
     profile: Profile;
@@ -37,6 +38,8 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
     return (
         <section className="py-16 sm:py-20 bg-bg-alt min-h-screen flex flex-col items-center relative">
             <BackgroundEffects />
+            {/* Theme Switcher Button */}
+            <ThemeSwitcherButton />
 
             {/* Background gradient overlay */}
             <div className="container max-w-xl mx-auto px-4 relative z-10">
