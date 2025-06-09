@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useEffect, useState, Suspense } from "react";
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/static/Navbar";
 import ComingSoon from "@/components/ui/ComingSoon";
 import { getRouteInfo } from "@/lib/routes";
 
-export default function ComingSoonPage() {
+// Create a separate client component for the content that uses useSearchParams
+const ComingSoonContent = () => {
+    const { useSearchParams } = require("next/navigation");
     const searchParams = useSearchParams();
     const router = useRouter();
     const [title, setTitle] = useState("Coming Soon");
@@ -64,20 +66,29 @@ export default function ComingSoonPage() {
     const showNotification = searchParams.get('notify') !== 'false';
 
     return (
+        <ComingSoon
+            title={title}
+            description={description}
+            launchDate={launchDate}
+            completionPercentage={completionPercentage}
+            showBackToHome={true}
+            showNotification={showNotification}
+            customBackLink={{
+                href: "/",
+                label: "Return to Homepage"
+            }}
+        />
+    );
+};
+
+// Main page component with Suspense boundary
+export default function ComingSoonPage() {
+    return (
         <>
             <Navbar />
-            <ComingSoon
-                title={title}
-                description={description}
-                launchDate={launchDate}
-                completionPercentage={completionPercentage}
-                showBackToHome={true}
-                showNotification={showNotification}
-                customBackLink={{
-                    href: "/",
-                    label: "Return to Homepage"
-                }}
-            />
+            <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+                <ComingSoonContent />
+            </Suspense>
         </>
     );
 }

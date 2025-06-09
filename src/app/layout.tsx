@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     description: "I create beautiful and functional web experiences with modern technologies and a passion for design.",
     images: "/character.png",
     creator: "@CodeMeAPixel",
-    card: "summary_large_image",
+    card: "summary",
     images: "/character.png",
     site: "https://codemeapixel.dev",
   },
