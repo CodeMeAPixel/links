@@ -29,7 +29,7 @@ export const linkHubProfile: LinkHubProfile = {
         {
             id: "projects",
             title: "Projects",
-            url: "/projects",
+            url: "https://codemeapixel.dev/projects",
             icon: "IoCodeSlashOutline",
             description: "See my latest work",
             color: "bg-purple-500",
