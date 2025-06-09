@@ -66,7 +66,7 @@ export const categories: LinkCategory[] = [
             {
                 id: "fivem",
                 title: "FiveM Scripts",
-                url: "/fivem",
+                url: "https://codemeapixel.dev/fivem",
                 icon: "IoGameControllerOutline",
                 description: "Custom scripts for FiveM servers",
                 color: "bg-orange-500"
@@ -74,7 +74,7 @@ export const categories: LinkCategory[] = [
             {
                 id: "web-development",
                 title: "Web Development",
-                url: "/contact",
+                url: "https://codemeapixel.dev/contact",
                 icon: "IoCodeOutline",
                 description: "Custom web development services",
                 color: "bg-indigo-500"
@@ -90,7 +90,7 @@ export const categories: LinkCategory[] = [
             {
                 id: "blog",
                 title: "Blog",
-                url: "/blog",
+                url: "https://codemeapixel.dev/blog",
                 icon: "IoNewspaperOutline",
                 description: "Tutorials and articles on web development",
                 color: "bg-pink-500"
