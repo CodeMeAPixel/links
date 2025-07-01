@@ -39,18 +39,33 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
                 case 'galary': // Handle the typo from your example
                     setShowGallery(true);
                     setShowPlaylist(false);
+                    setActiveCategory(null);
                     setActiveSection('gallery');
                     break;
                 case 'playlist':
                 case 'music':
                     setShowPlaylist(true);
                     setShowGallery(false);
+                    setActiveCategory(null);
                     setActiveSection('playlist');
+                    break;
+                case 'projects':
+                    setShowPlaylist(false);
+                    setShowGallery(false);
+                    setActiveCategory('projects');
+                    setActiveSection('projects');
+                    break;
+                case 'services':
+                    setShowPlaylist(false);
+                    setShowGallery(false);
+                    setActiveCategory('services');
+                    setActiveSection('services');
                     break;
                 case 'links':
                 default:
                     setShowGallery(false);
                     setShowPlaylist(false);
+                    setActiveCategory(null);
                     setActiveSection('links');
                     break;
             }
@@ -58,6 +73,7 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
             // Default to links if no section specified
             setShowGallery(false);
             setShowPlaylist(false);
+            setActiveCategory(null);
             setActiveSection('links');
         }
     }, [searchParams]);
@@ -72,7 +88,7 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
             params.set('section', section);
         }
 
-        const newUrl = params.toString() ? `?${params.toString()}` : '';
+        const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname;
         router.push(newUrl, { scroll: false });
     };
 
@@ -84,15 +100,28 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
             case 'gallery':
                 setShowGallery(true);
                 setShowPlaylist(false);
+                setActiveCategory(null);
                 break;
             case 'playlist':
                 setShowPlaylist(true);
                 setShowGallery(false);
+                setActiveCategory(null);
+                break;
+            case 'projects':
+                setShowGallery(false);
+                setShowPlaylist(false);
+                setActiveCategory('projects');
+                break;
+            case 'services':
+                setShowGallery(false);
+                setShowPlaylist(false);
+                setActiveCategory('services');
                 break;
             case 'links':
             default:
                 setShowGallery(false);
                 setShowPlaylist(false);
+                setActiveCategory(null);
                 break;
         }
     };
@@ -181,30 +210,48 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
                                 setActiveCategory(null);
                                 setShowPlaylist(false);
                                 setShowGallery(false);
+                                setActiveSection('links');
                                 handleSectionChange('links');
                             }}
                         >
                             Featured
                         </button>
 
-                        {profile.categories.map(category => (
-                            <button
-                                key={category.id}
-                                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors
-                                        ${activeCategory === category.id && !showPlaylist && !showGallery
-                                        ? 'bg-primary-800/40 text-primary-300 border border-primary-700/40'
-                                        : 'bg-card text-color-text-muted border border-color-border hover:bg-card-alt'
-                                    }`}
-                                onClick={() => {
-                                    setActiveCategory(category.id);
-                                    setShowPlaylist(false);
-                                    setShowGallery(false);
-                                    handleSectionChange('links');
-                                }}
-                            >
-                                {category.name}
-                            </button>
-                        ))}
+                        {/* Projects Tab */}
+                        <button
+                            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors
+                                    ${activeCategory === 'projects' && !showPlaylist && !showGallery
+                                    ? 'bg-primary-800/40 text-primary-300 border border-primary-700/40'
+                                    : 'bg-card text-color-text-muted border border-color-border hover:bg-card-alt'
+                                }`}
+                            onClick={() => {
+                                setActiveCategory('projects');
+                                setShowPlaylist(false);
+                                setShowGallery(false);
+                                setActiveSection('projects');
+                                handleSectionChange('projects');
+                            }}
+                        >
+                            Projects
+                        </button>
+
+                        {/* Services Tab */}
+                        <button
+                            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors
+                                    ${activeCategory === 'services' && !showPlaylist && !showGallery
+                                    ? 'bg-primary-800/40 text-primary-300 border border-primary-700/40'
+                                    : 'bg-card text-color-text-muted border border-color-border hover:bg-card-alt'
+                                }`}
+                            onClick={() => {
+                                setActiveCategory('services');
+                                setShowPlaylist(false);
+                                setShowGallery(false);
+                                setActiveSection('services');
+                                handleSectionChange('services');
+                            }}
+                        >
+                            Services
+                        </button>
 
                         {/* Playlist Tab */}
                         <button
@@ -214,6 +261,7 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
                                     : 'bg-card text-color-text-muted border border-color-border hover:bg-card-alt'
                                 }`}
                             onClick={() => {
+                                setActiveCategory(null);
                                 setShowPlaylist(true);
                                 setShowGallery(false);
                                 handleSectionChange('playlist');
@@ -230,6 +278,7 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
                                     : 'bg-card text-color-text-muted border border-color-border hover:bg-card-alt'
                                 }`}
                             onClick={() => {
+                                setActiveCategory(null);
                                 setShowGallery(true);
                                 setShowPlaylist(false);
                                 handleSectionChange('gallery');

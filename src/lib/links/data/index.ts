@@ -6,7 +6,7 @@ export const linkHubProfile: LinkHubProfile = {
     name: "CodeMeAPixel",
     avatar: "/character.png",
     title: "Full Stack Developer & Designer",
-    bio: "I build web applications and design user experiences. Connect with me on these platforms or check out my projects.",
+    bio: "I create beautiful and functional web experiences with modern technologies and a passion for design",
     featuredLinks: [
         {
             id: "portfolio",

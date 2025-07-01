@@ -2,6 +2,14 @@ import { SocialLink } from "@/types/links";
 
 export const socialLinks: SocialLink[] = [
     {
+        id: "instagram",
+        title: "Instagram",
+        url: "https://instagram.com/codemeapixel",
+        icon: "IoLogoInstagram",
+        username: "@codemeapixel",
+        color: "bg-purple-500"
+    },
+    {
         id: "twitter",
         title: "Twitter",
         url: "https://twitter.com/codemeapixel",
