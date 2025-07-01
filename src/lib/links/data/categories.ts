@@ -80,29 +80,5 @@ export const categories: LinkCategory[] = [
                 color: "bg-indigo-500"
             }
         ]
-    },
-    {
-        id: "resources",
-        name: "Resources",
-        icon: "IoBookOutline",
-        color: "text-green-500",
-        links: [
-            {
-                id: "blog",
-                title: "Blog",
-                url: "https://codemeapixel.dev/blog",
-                icon: "IoNewspaperOutline",
-                description: "Tutorials and articles on web development",
-                color: "bg-pink-500"
-            },
-            {
-                id: "github",
-                title: "GitHub Repositories",
-                url: "https://github.com/codemeapixel",
-                icon: "IoLogoGithub",
-                description: "Open source projects and code examples",
-                color: "bg-gray-800"
-            }
-        ]
     }
 ];

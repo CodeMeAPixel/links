@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,6 +12,7 @@ import GallerySection from './GallerySection';
 import { Profile, Playlist, getGallery } from '@/data/linksData';
 import { BackgroundEffects } from '@/components/ui/BackgroundEffects';
 import ThemeSwitcherButton from '@/components/links/ThemeSwitcherButton';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 interface LinkHubContentProps {
     profile: Profile;
@@ -19,11 +20,82 @@ interface LinkHubContentProps {
 }
 
 export default function LinkHubContent({ profile, playlist }: LinkHubContentProps) {
+    const searchParams = useSearchParams();
+    const router = useRouter();
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
     const [showPlaylist, setShowPlaylist] = useState<boolean>(false);
     const [showGallery, setShowGallery] = useState<boolean>(false);
+    const [activeSection, setActiveSection] = useState('links');
 
     const gallery = getGallery();
+
+    // Handle query parameters on component mount and when they change
+    useEffect(() => {
+        const section = searchParams.get('section');
+        if (section) {
+            const normalizedSection = section.toLowerCase();
+            switch (normalizedSection) {
+                case 'gallery':
+                case 'galary': // Handle the typo from your example
+                    setShowGallery(true);
+                    setShowPlaylist(false);
+                    setActiveSection('gallery');
+                    break;
+                case 'playlist':
+                case 'music':
+                    setShowPlaylist(true);
+                    setShowGallery(false);
+                    setActiveSection('playlist');
+                    break;
+                case 'links':
+                default:
+                    setShowGallery(false);
+                    setShowPlaylist(false);
+                    setActiveSection('links');
+                    break;
+            }
+        } else {
+            // Default to links if no section specified
+            setShowGallery(false);
+            setShowPlaylist(false);
+            setActiveSection('links');
+        }
+    }, [searchParams]);
+
+    // Function to update URL without page reload
+    const updateURL = (section: string) => {
+        const params = new URLSearchParams(searchParams.toString());
+
+        if (section === 'links') {
+            params.delete('section');
+        } else {
+            params.set('section', section);
+        }
+
+        const newUrl = params.toString() ? `?${params.toString()}` : '';
+        router.push(newUrl, { scroll: false });
+    };
+
+    const handleSectionChange = (section: string) => {
+        setActiveSection(section);
+        updateURL(section);
+
+        switch (section) {
+            case 'gallery':
+                setShowGallery(true);
+                setShowPlaylist(false);
+                break;
+            case 'playlist':
+                setShowPlaylist(true);
+                setShowGallery(false);
+                break;
+            case 'links':
+            default:
+                setShowGallery(false);
+                setShowPlaylist(false);
+                break;
+        }
+    };
 
     // Get the dynamic icon component
     const getIconComponent = (iconName: string) => {
@@ -109,6 +181,7 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
                                 setActiveCategory(null);
                                 setShowPlaylist(false);
                                 setShowGallery(false);
+                                handleSectionChange('links');
                             }}
                         >
                             Featured
@@ -126,6 +199,7 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
                                     setActiveCategory(category.id);
                                     setShowPlaylist(false);
                                     setShowGallery(false);
+                                    handleSectionChange('links');
                                 }}
                             >
                                 {category.name}
@@ -142,9 +216,10 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
                             onClick={() => {
                                 setShowPlaylist(true);
                                 setShowGallery(false);
+                                handleSectionChange('playlist');
                             }}
                         >
-                            My Playlist
+                            Playlist
                         </button>
 
                         {/* Gallery Tab */}
@@ -157,9 +232,10 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
                             onClick={() => {
                                 setShowGallery(true);
                                 setShowPlaylist(false);
+                                handleSectionChange('gallery');
                             }}
                         >
-                            Design Gallery
+                            Gallery
                         </button>
                     </motion.div>
 

@@ -34,7 +34,16 @@ export const linkHubProfile: LinkHubProfile = {
             description: "See my latest work",
             color: "bg-purple-500",
             featured: true
-        }
+        },
+        {
+            id: "blog",
+            title: "Blog",
+            url: "https://codemeapixel.dev/blog",
+            icon: "IoNewspaperOutline",
+            description: "Tutorials and articles on web development",
+            color: "bg-pink-500",
+            featured: true
+        },
     ],
     socialLinks,
     categories
