@@ -8,7 +8,8 @@ import { LinkHubProfile, LinkItem, SocialLink } from '@/types/links';
 import * as IoIcons from 'react-icons/io5';
 import { IoArrowForward } from 'react-icons/io5';
 import PlaylistSection from './PlaylistSection';
-import { Profile, Playlist } from '@/data/linksData';
+import GallerySection from './GallerySection';
+import { Profile, Playlist, getGallery } from '@/data/linksData';
 import { BackgroundEffects } from '@/components/ui/BackgroundEffects';
 import ThemeSwitcherButton from '@/components/links/ThemeSwitcherButton';
 
@@ -20,6 +21,9 @@ interface LinkHubContentProps {
 export default function LinkHubContent({ profile, playlist }: LinkHubContentProps) {
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
     const [showPlaylist, setShowPlaylist] = useState<boolean>(false);
+    const [showGallery, setShowGallery] = useState<boolean>(false);
+
+    const gallery = getGallery();
 
     // Get the dynamic icon component
     const getIconComponent = (iconName: string) => {
@@ -88,7 +92,7 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
                         </div>
                     </motion.div>
 
-                    {/* Category filter - Modified to include playlist tab */}
+                    {/* Category filter - Modified to include gallery tab */}
                     <motion.div
                         className="flex flex-wrap justify-center gap-2 mb-8"
                         initial={{ opacity: 0, y: 10 }}
@@ -97,13 +101,14 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
                     >
                         <button
                             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors
-                                    ${activeCategory === null && !showPlaylist
+                                    ${activeCategory === null && !showPlaylist && !showGallery
                                     ? 'bg-primary-800/40 text-primary-300 border border-primary-700/40'
                                     : 'bg-card text-color-text-muted border border-color-border hover:bg-card-alt'
                                 }`}
                             onClick={() => {
                                 setActiveCategory(null);
                                 setShowPlaylist(false);
+                                setShowGallery(false);
                             }}
                         >
                             Featured
@@ -113,13 +118,14 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
                             <button
                                 key={category.id}
                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors
-                                        ${activeCategory === category.id && !showPlaylist
+                                        ${activeCategory === category.id && !showPlaylist && !showGallery
                                         ? 'bg-primary-800/40 text-primary-300 border border-primary-700/40'
                                         : 'bg-card text-color-text-muted border border-color-border hover:bg-card-alt'
                                     }`}
                                 onClick={() => {
                                     setActiveCategory(category.id);
                                     setShowPlaylist(false);
+                                    setShowGallery(false);
                                 }}
                             >
                                 {category.name}
@@ -129,18 +135,36 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
                         {/* Playlist Tab */}
                         <button
                             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors
-                                    ${showPlaylist
+                                    ${showPlaylist && !showGallery
                                     ? 'bg-primary-800/40 text-primary-300 border border-primary-700/40'
                                     : 'bg-card text-color-text-muted border border-color-border hover:bg-card-alt'
                                 }`}
-                            onClick={() => setShowPlaylist(true)}
+                            onClick={() => {
+                                setShowPlaylist(true);
+                                setShowGallery(false);
+                            }}
                         >
                             My Playlist
                         </button>
+
+                        {/* Gallery Tab */}
+                        <button
+                            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors
+                                    ${showGallery && !showPlaylist
+                                    ? 'bg-primary-800/40 text-primary-300 border border-primary-700/40'
+                                    : 'bg-card text-color-text-muted border border-color-border hover:bg-card-alt'
+                                }`}
+                            onClick={() => {
+                                setShowGallery(true);
+                                setShowPlaylist(false);
+                            }}
+                        >
+                            Design Gallery
+                        </button>
                     </motion.div>
 
-                    {/* Content Area - Either Links or Playlist */}
-                    {!showPlaylist ? (
+                    {/* Content Area - Links, Playlist, or Gallery */}
+                    {!showPlaylist && !showGallery ? (
                         /* Links list */
                         <motion.div
                             className="flex flex-col gap-4"
@@ -157,7 +181,7 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
                                 />
                             ))}
                         </motion.div>
-                    ) : (
+                    ) : showPlaylist ? (
                         /* Playlist Section */
                         <motion.div
                             initial={{ opacity: 0 }}
@@ -165,6 +189,15 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
                             transition={{ duration: 0.5, delay: 0.2 }}
                         >
                             <PlaylistSection playlist={playlist} />
+                        </motion.div>
+                    ) : (
+                        /* Gallery Section */
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                        >
+                            <GallerySection gallery={gallery} />
                         </motion.div>
                     )}
 
@@ -176,10 +209,10 @@ export default function LinkHubContent({ profile, playlist }: LinkHubContentProp
                         transition={{ duration: 0.5, delay: 0.4 }}
                     >
                         <Link
-                            href="/"
+                            href="https://codemeapixel.dev"
                             className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 transition-colors"
                         >
-                            Back to Website
+                            Checkout my Portfolio!
                             <IoArrowForward className="w-4 h-4" />
                         </Link>
                     </motion.div>

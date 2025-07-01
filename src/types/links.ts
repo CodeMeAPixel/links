@@ -56,17 +56,51 @@ export interface LinkHubProfile {
 }
 
 export interface Track {
-  id: string;
-  title: string;
-  artist: string;
-  albumCover: string;
-  audioFile?: string;
-  spotifyUrl?: string;
-  genre?: string; // Add genre field
+    id: string;
+    title: string;
+    artist: string;
+    albumCover: string;
+    audioFile?: string;
+    spotifyUrl?: string;
+    genre?: string; // Add genre field
 }
 
 export interface Playlist {
-  title: string;
-  description: string;
-  tracks: Track[];
+    title: string;
+    description: string;
+    tracks: Track[];
+}
+
+export interface GalleryItem {
+    id: string;
+    title: string;
+    description?: string;
+    imageUrl: string;
+    thumbnailUrl?: string; // Optional smaller version for grid view
+    tags: string[];
+    category: 'logo' | 'web-design' | 'illustration' | 'branding' | 'ui-ux' | 'other';
+    createdDate: string; // ISO date string
+    featured?: boolean;
+    dimensions?: {
+        width: number;
+        height: number;
+    };
+    fileSize?: string; // e.g., "2.5 MB"
+    software?: string[]; // e.g., ["Photoshop", "Illustrator"]
+    clientProject?: boolean;
+}
+
+export interface GalleryCategory {
+    id: string;
+    name: string;
+    description?: string;
+    icon?: string;
+    color?: string;
+}
+
+export interface Gallery {
+    title: string;
+    description: string;
+    items: GalleryItem[];
+    categories: GalleryCategory[];
 }

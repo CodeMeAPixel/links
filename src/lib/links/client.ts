@@ -9,6 +9,7 @@ import {
     electronicTracks,
     hipHopTracks
 } from "./data/playlist";
+import { gallery, getGalleryItemsByCategory, getGalleryItemsByTag, getFeaturedGalleryItems, getAllTags as getAllGalleryTags } from "./data/gallery";
 
 export class LinksClient {
     private static instance: LinksClient;
@@ -88,6 +89,26 @@ export class LinksClient {
 
     public getHipHopTracks(): Track[] {
         return hipHopTracks;
+    }
+
+    public getGallery() {
+        return gallery;
+    }
+
+    public getGalleryItemsByCategory(categoryId: string) {
+        return getGalleryItemsByCategory(categoryId);
+    }
+
+    public getGalleryItemsByTag(tag: string) {
+        return getGalleryItemsByTag(tag);
+    }
+
+    public getFeaturedGalleryItems() {
+        return getFeaturedGalleryItems();
+    }
+
+    public getAllGalleryTags() {
+        return getAllGalleryTags();
     }
 }
 

@@ -32,3 +32,15 @@ export function getLinkById(linkId: string): LinkItem | undefined {
 export function getPlaylist(): Playlist {
   return linksClient.getPlaylist();
 }
+
+export function getGallery() {
+  return linksClient.getGallery();
+}
+
+export function getGalleryItemsByCategory(categoryId: string) {
+  return linksClient.getGalleryItemsByCategory(categoryId);
+}
+
+export function getGalleryItemsByTag(tag: string) {
+  return linksClient.getGalleryItemsByTag(tag);
+}
